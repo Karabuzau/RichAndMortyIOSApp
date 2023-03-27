@@ -12,25 +12,16 @@ final class RMRequest {
     private struct Constants {
         static let baseUrl = "https://rickandmortyapi.com/api"
     }
-    private let endPiont:RMEndPoint
+    private let endPoint:RMEndPoint
     
-    private let  pathhComponens: Set<String>
+    private let  pathhComponens: [String]
     
     private let queryParameters: [URLQueryItem]
-    
-    init(endPiont: RMEndPoint,
-         pathhComponens: Set<String> = [],
-         queryParameters: [URLQueryItem] = []
-    ) {
-        self.endPiont = endPiont
-        self.pathhComponens = pathhComponens
-        self.queryParameters = queryParameters
-    }
     
     private var urlString: String{
         var string = Constants.baseUrl
         string += "/"
-        string += endPiont.rawValue
+        string += endPoint.rawValue
         
         if !pathhComponens.isEmpty {
             pathhComponens.forEach({
@@ -44,9 +35,10 @@ final class RMRequest {
                 guard let value = $0.value else {return nil}
                 return "\($0.name)=\(value)"
             }).joined(separator: "&")
+            
+            string += argumentSrring
         }
      
-        
         return string
     }
     
@@ -56,4 +48,17 @@ final class RMRequest {
     }
     
     public let HTTPmethod = "GET"
+    
+    public init(endPoint: RMEndPoint,
+         pathhComponens: [String] = [],
+         queryParameters: [URLQueryItem] = []
+    ) {
+        self.endPoint = endPoint
+        self.pathhComponens = pathhComponens
+        self.queryParameters = queryParameters
+    }
 }
+
+
+extension RMRequest {
+    static let listChatacterRequest = RMRequest(endPoint: .character)}

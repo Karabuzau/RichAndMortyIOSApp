@@ -9,21 +9,20 @@ import UIKit
 
 /// Controller to show and serach for character
 final class RMCharacterViewController: UIViewController {
+    
+    private let characterListView = RMCharacterListView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         title = "Character"
-        let request = RMRequest(
-            endPiont: .character,
-            pathhComponens: ["1"]
-        )
-        print(request.url)
-
-
+        view.addSubview(characterListView)
+        NSLayoutConstraint.activate([
+            characterListView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            characterListView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            characterListView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            characterListView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
     }
-    
-
- 
-
 }
